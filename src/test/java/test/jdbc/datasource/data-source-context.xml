@@ -11,17 +11,34 @@
 	<context:component-scan base-package="com.m4gik" />
 	<tx:annotation-driven proxy-target-class="false" />			
 			
-	<!-- Configuration for Warehouse database sources -->				
+	<!-- Configuration for Warehouse in Poland database sources -->				
 	<bean class="test.jdbc.datasource.DataSourceInitializer">
-		<property name="dataSource" ref="dataSourceWarehouse" />
-		<property name="initScripts" value="/warehouse.sql" />
+		<property name="dataSource" ref="dataSourceWarehousePoland" />
+		<property name="initScripts" value="/warehousePoland.sql" />
 	</bean>
 	
-	<bean id="dataSourceWarehouse" class="com.m4gik.AtomikosDataSourceFactoryBean">
-		<property name="uniqueResourceName" value="data-source-warehouse" />
+	<bean id="dataSourceWarehousePoland" class="com.m4gik.AtomikosDataSourceFactoryBean">
+		<property name="uniqueResourceName" value="data-source-warehouse-poland" />
 		<property name="xaDataSource">
 			<bean class="test.jdbc.datasource.DerbyDataSourceFactoryBean">
-				<property name="databaseName" value="warehousedb" />
+				<property name="databaseName" value="warehousepldb" />
+			</bean>
+		</property>
+		<property name="exclusiveConnectionMode" value="true" />
+		<property name="connectionPoolSize" value="1" />
+	</bean>
+	
+	<!-- Configuration for Warehouse in Finland database sources -->
+	<bean class="test.jdbc.datasource.DataSourceInitializer">
+		<property name="dataSource" ref="dataSourceWarehouseFinland" />
+		<property name="initScripts" value="/warehouseFinland.sql" />
+	</bean>
+	
+	<bean id="dataSourceWarehouseFinland" class="com.m4gik.AtomikosDataSourceFactoryBean">
+		<property name="uniqueResourceName" value="data-source-warehouse-finland" />
+		<property name="xaDataSource">
+			<bean class="test.jdbc.datasource.DerbyDataSourceFactoryBean">
+				<property name="databaseName" value="warehousefidb" />
 			</bean>
 		</property>
 		<property name="exclusiveConnectionMode" value="true" />
@@ -44,6 +61,7 @@
 		<property name="exclusiveConnectionMode" value="true" />
 		<property name="connectionPoolSize" value="1" />
 	</bean>
+	
 	
 	<!-- Configuration for transactionManager -->
 	<bean id="transactionManager"
