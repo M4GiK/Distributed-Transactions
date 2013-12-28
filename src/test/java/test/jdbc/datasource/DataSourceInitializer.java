@@ -41,6 +41,9 @@ public class DataSourceInitializer implements InitializingBean, DisposableBean {
 
     private static Map<DataSource, Boolean> initialized = new IdentityHashMap<DataSource, Boolean>();
 
+    /**
+     * Logger for reporting in runtime.
+     */
     private static final Log logger = LogFactory
             .getLog(DataSourceInitializer.class);
 
@@ -63,6 +66,19 @@ public class DataSourceInitializer implements InitializingBean, DisposableBean {
 
     private Resource[] initScripts;
 
+    /**
+     * Invoked by a BeanFactory after it has set all bean properties supplied
+     * (and satisfied BeanFactoryAware and ApplicationContextAware).
+     * 
+     * This method allows the bean instance to perform initialization only
+     * possible when all bean properties have been set and to throw an exception
+     * in the event of misconfiguration.
+     * 
+     * This method overrides an existing method.
+     * 
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
+    @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(dataSource);
         if (!initialized.containsKey(dataSource)) {
@@ -71,12 +87,22 @@ public class DataSourceInitializer implements InitializingBean, DisposableBean {
         initialize();
     }
 
+    /**
+     * Invoked by a BeanFactory on destruction of a singleton.
+     * 
+     * This method overrides an existing method.
+     * 
+     * @see org.springframework.beans.factory.DisposableBean#destroy()
+     */
     public void destroy() {
+
         if (destroyScripts == null) {
             return;
         }
+
         for (int i = 0; i < destroyScripts.length; i++) {
             Resource destroyScript = initScripts[i];
+
             try {
                 doExecuteScript(destroyScript);
             } catch (Exception e) {
@@ -91,18 +117,27 @@ public class DataSourceInitializer implements InitializingBean, DisposableBean {
         }
     }
 
+    /**
+     * This method, read all data source from context file, and initialize beans
+     * for test.
+     * 
+     * @param scriptResource
+     */
     private void doExecuteScript(final Resource scriptResource) {
         if (scriptResource == null || !scriptResource.exists()) {
             return;
         }
+
         TransactionTemplate transactionTemplate = new TransactionTemplate(
                 new DataSourceTransactionManager(dataSource));
+
         transactionTemplate.execute(new TransactionCallback() {
 
             @SuppressWarnings("unchecked")
             public Object doInTransaction(TransactionStatus status) {
                 JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
                 String[] scripts;
+
                 try {
                     scripts = StringUtils.delimitedListToStringArray(
                             stripComments(IOUtils.readLines(scriptResource
@@ -112,8 +147,10 @@ public class DataSourceInitializer implements InitializingBean, DisposableBean {
                             "Cannot load script from [" + scriptResource + "]",
                             e);
                 }
+
                 for (int i = 0; i < scripts.length; i++) {
                     String script = scripts[i].trim();
+
                     if (StringUtils.hasText(script)) {
                         try {
                             jdbcTemplate.execute(script);
@@ -130,9 +167,7 @@ public class DataSourceInitializer implements InitializingBean, DisposableBean {
                 }
                 return null;
             }
-
         });
-
     }
 
     /**
@@ -145,6 +180,9 @@ public class DataSourceInitializer implements InitializingBean, DisposableBean {
         logger.debug("finalize called");
     }
 
+    /**
+     * This method initialize data source to execute.
+     */
     private void initialize() {
         if (!initialized.get(dataSource)) {
             destroy();
@@ -158,22 +196,49 @@ public class DataSourceInitializer implements InitializingBean, DisposableBean {
         }
     }
 
+    /**
+     * 
+     * @param dataSource
+     *            The dataSource to set.
+     */
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
+    /**
+     * 
+     * @param destroyScripts
+     *            The destroyScripts to set.
+     */
     public void setDestroyScripts(Resource[] destroyScripts) {
         this.destroyScripts = destroyScripts;
     }
 
+    /**
+     * 
+     * @param ignoreFailedDrop
+     *            The ignoreFailedDrop to set.
+     */
     public void setIgnoreFailedDrop(boolean ignoreFailedDrop) {
         this.ignoreFailedDrop = ignoreFailedDrop;
     }
 
+    /**
+     * 
+     * @param initScripts
+     *            The initScripts to set.
+     */
     public void setInitScripts(Resource[] initScripts) {
         this.initScripts = initScripts;
     }
 
+    /**
+     * This method deletes comments from list.
+     * 
+     * @param list
+     *            to perform.
+     * @return List without comments.
+     */
     private String stripComments(List<String> list) {
         StringBuffer buffer = new StringBuffer();
         for (String line : list) {

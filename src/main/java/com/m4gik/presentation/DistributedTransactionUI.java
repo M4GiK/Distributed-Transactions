@@ -43,7 +43,7 @@ public class DistributedTransactionUI extends UI {
     }
 
     /**
-     * Looger for reporting in runtime.
+     * Logger for reporting in runtime.
      */
     private final static Logger logger = Logger
             .getLogger(DistributedTransactionUI.class.getName());
