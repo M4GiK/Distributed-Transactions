@@ -1,3 +1,8 @@
+/**
+ * Project Distributed Transactions.
+ * Copyright Michał Szczygieł, 2013.
+ * Created at Dec 28, 2013.
+ */
 package com.m4gik.presentation;
 
 import java.util.logging.Logger;
@@ -8,24 +13,48 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 
+/**
+ * 
+ * This class represents user interface for distributed transaction as proof of
+ * concept.
+ * 
+ * @author m4gik <michal.szczygiel@wp.pl>
+ * 
+ */
 @Theme("runo")
 @SuppressWarnings("serial")
 public class DistributedTransactionUI extends UI {
 
+    /**
+     * 
+     * Inner static class represents Servlet. This class can be extended.
+     * 
+     * @author m4gik <michal.szczygiel@wp.pl>
+     * 
+     */
     @WebServlet(value = "/*", asyncSupported = true)
     @VaadinServletConfiguration(productionMode = false, ui = DistributedTransactionUI.class, widgetset = "com.vaadin.DefaultWidgetSet")
     public static class Servlet extends VaadinServlet {
     }
 
+    /**
+     * Looger for reporting in runtime.
+     */
     private final static Logger logger = Logger
             .getLogger(DistributedTransactionUI.class.getName());
 
+    /**
+     * This method initialize a base components for distributed transaction as
+     * UI for application. This method overrides an existing method.
+     * 
+     * @see com.vaadin.ui.UI#init(com.vaadin.server.VaadinRequest)
+     */
     @Override
     protected void init(VaadinRequest request) {
-        // TODO Auto-generated method stub
-
+        setContent(new Label("Test"));
     }
 
 }
