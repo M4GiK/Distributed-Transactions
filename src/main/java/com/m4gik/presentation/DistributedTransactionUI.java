@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import javax.servlet.annotation.WebServlet;
 
+import com.m4gik.presentation.views.FinanceScreen;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
@@ -54,12 +55,13 @@ public class DistributedTransactionUI extends UI {
     private TabSheet tabSheet = null;
 
     /**
+     * This method build view for finance operations for distributed
+     * transactions.
      * 
      * @return
      */
     private Component buildFinance() {
-        // TODO Auto-generated method stub
-        return new VerticalLayout();
+        return new FinanceScreen().build();
     }
 
     /**

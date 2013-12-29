@@ -8,18 +8,18 @@ package com.m4gik.presentation.views;
 import com.vaadin.ui.Layout;
 
 /**
- * Interface for building the proper view.
+ * 
+ * TODO COMMENTS MISSING!
  * 
  * @author m4gik <michal.szczygiel@wp.pl>
  * 
  */
-public interface ViewScreen {
+public class FinanceScreen implements ViewScreen {
 
-    /**
-     * Method to build proper view.
-     * 
-     * @return The layout to build the view.
-     */
-    public Layout build();
+    @Override
+    public Layout build() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }
