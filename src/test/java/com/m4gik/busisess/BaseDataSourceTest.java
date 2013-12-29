@@ -1,16 +1,22 @@
 /**
  * Project Distributed Transactions.
  * Copyright Michał Szczygieł, 2013.
- * Created at Dec 28, 2013.
+ * Created at Dec 29, 2013.
  */
-package com.m4gik.business;
+package com.m4gik.busisess;
+
+import java.io.File;
 
 import javax.sql.DataSource;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * This class sets base data sources for project.
@@ -18,8 +24,29 @@ import org.springframework.test.context.ContextConfiguration;
  * @author m4gik <michal.szczygiel@wp.pl>
  * 
  */
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/META-INF/spring/data-source-context.xml")
-public class BaseDataSource {
+public class BaseDataSourceTest {
+
+    /**
+     * Method for logging.
+     */
+    @BeforeClass
+    @AfterClass
+    public static void clearLog() {
+
+        // Ensure that Atomikos logging directory exists
+        File dir = new File("atomikos");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+
+        // ...and delete any stale locks (this would be a sign of a crash)
+        File tmlog = new File("atomikos/tmlog.lck");
+        if (tmlog.exists()) {
+            tmlog.delete();
+        }
+    }
 
     /**
      * JDBC object to the Finance.
@@ -76,4 +103,5 @@ public class BaseDataSource {
                 dataSourceWarehouseFinland);
         this.jdbcFinance = new SimpleJdbcTemplate(dataSourceFinance);
     }
+
 }
