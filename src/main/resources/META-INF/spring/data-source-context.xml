@@ -8,7 +8,7 @@
 							http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
 							http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 				
-	<context:component-scan base-package="com.m4gik" />
+	<context:component-scan base-package="com.m4gik.business" />
 	<tx:annotation-driven proxy-target-class="false" />			
 			
 	<!-- Configuration for Warehouse in Poland database sources -->				
@@ -17,7 +17,7 @@
 		<property name="initScripts" value="/warehousePoland.sql" />
 	</bean>
 	
-	<bean id="dataSourceWarehousePoland" class="com.m4gik.AtomikosDataSourceFactoryBean">
+	<bean id="dataSourceWarehousePoland" class="com.m4gik.business.AtomikosDataSourceFactoryBean">
 		<property name="uniqueResourceName" value="data-source-warehouse-poland" />
 		<property name="xaDataSource">
 			<bean class="test.jdbc.datasource.DerbyDataSourceFactoryBean">
@@ -34,7 +34,7 @@
 		<property name="initScripts" value="/warehouseFinland.sql" />
 	</bean>
 	
-	<bean id="dataSourceWarehouseFinland" class="com.m4gik.AtomikosDataSourceFactoryBean">
+	<bean id="dataSourceWarehouseFinland" class="com.m4gik.business.AtomikosDataSourceFactoryBean">
 		<property name="uniqueResourceName" value="data-source-warehouse-finland" />
 		<property name="xaDataSource">
 			<bean class="test.jdbc.datasource.DerbyDataSourceFactoryBean">
@@ -51,7 +51,7 @@
 		<property name="initScripts" value="/finance.sql" />
 	</bean>
 	
-	<bean id="dataSourceFinance" class="com.m4gik.AtomikosDataSourceFactoryBean">
+	<bean id="dataSourceFinance" class="com.m4gik.business.AtomikosDataSourceFactoryBean">
 		<property name="uniqueResourceName" value="data-source-finance" />
 		<property name="xaDataSource">
 			<bean class="test.jdbc.datasource.DerbyDataSourceFactoryBean">

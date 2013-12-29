@@ -3,7 +3,7 @@
  * Copyright Michał Szczygieł, 2013.
  * Created at Dec 27, 2013.
  */
-package com.m4gik;
+package com.m4gik.business;
 
 import javax.sql.DataSource;
 import javax.sql.XADataSource;

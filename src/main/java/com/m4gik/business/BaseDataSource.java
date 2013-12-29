@@ -3,7 +3,7 @@
  * Copyright Michał Szczygieł, 2013.
  * Created at Dec 28, 2013.
  */
-package com.m4gik;
+package com.m4gik.business;
 
 import java.io.File;
 
