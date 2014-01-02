@@ -22,5 +22,6 @@ public interface WarehousePolandDAO {
      * @param warehousePoland
      * @throws Exception
      */
-    void persistEmployee(WarehousePoland warehousePoland) throws Exception;
+    void persistWarehousePoland(WarehousePoland warehousePoland)
+            throws Exception;
 }

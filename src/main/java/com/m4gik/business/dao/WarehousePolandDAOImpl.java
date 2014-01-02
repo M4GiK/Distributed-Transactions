@@ -32,7 +32,7 @@ public class WarehousePolandDAOImpl implements WarehousePolandDAO {
      * @see com.m4gik.business.dao.WarehousePolandDAO#persistEmployee(com.m4gik.business.model.WarehousePoland)
      */
     @Override
-    public void persistEmployee(WarehousePoland warehousePoland)
+    public void persistWarehousePoland(WarehousePoland warehousePoland)
             throws Exception {
         entityManager.persist(warehousePoland);
     }
