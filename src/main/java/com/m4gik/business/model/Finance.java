@@ -1,3 +1,8 @@
+/**
+ * Project Distributed Transactions.
+ * Copyright Michał Szczygieł, 2013.
+ * Created at Jan 2, 2014.
+ */
 package com.m4gik.business.model;
 
 import java.sql.Timestamp;
