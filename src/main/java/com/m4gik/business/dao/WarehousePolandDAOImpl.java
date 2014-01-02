@@ -8,6 +8,8 @@ package com.m4gik.business.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Service;
+
 import com.m4gik.business.model.WarehousePoland;
 
 /**
@@ -17,6 +19,7 @@ import com.m4gik.business.model.WarehousePoland;
  * @author m4gik <michal.szczygiel@wp.pl>
  * 
  */
+@Service
 public class WarehousePolandDAOImpl implements WarehousePolandDAO {
 
     @PersistenceContext(unitName = "PersistenceUnitWarehousePoland")
