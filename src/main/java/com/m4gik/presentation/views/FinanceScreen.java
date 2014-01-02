@@ -10,7 +10,7 @@ import com.vaadin.ui.VerticalLayout;
 
 /**
  * 
- * TODO COMMENTS MISSING!
+ * This class represent basic operations for finance database.
  * 
  * @author m4gik <michal.szczygiel@wp.pl>
  * 
@@ -18,13 +18,14 @@ import com.vaadin.ui.VerticalLayout;
 public class FinanceScreen implements ViewScreen {
 
     /**
-     * 
-     * TODO Comments missing. This method overrides an existing method.
+     * This method build view for tab finance. This method overrides an existing
+     * method.
      * 
      * @see com.m4gik.presentation.views.ViewScreen#build()
      */
     @Override
     public Layout build() {
+
         return new VerticalLayout();
     }
 

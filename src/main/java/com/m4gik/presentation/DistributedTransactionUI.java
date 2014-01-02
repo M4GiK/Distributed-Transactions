@@ -5,10 +5,17 @@
  */
 package com.m4gik.presentation;
 
+import java.sql.Timestamp;
 import java.util.logging.Logger;
 
 import javax.servlet.annotation.WebServlet;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.m4gik.business.model.Finance;
+import com.m4gik.business.model.WarehouseFinland;
+import com.m4gik.business.model.WarehousePoland;
+import com.m4gik.business.service.DistributedService;
 import com.m4gik.presentation.views.FinanceScreen;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -29,6 +36,7 @@ import com.vaadin.ui.VerticalLayout;
  */
 @Theme("runo")
 @SuppressWarnings("serial")
+@org.springframework.stereotype.Component("distributedTransaction")
 public class DistributedTransactionUI extends UI {
 
     /**
@@ -50,9 +58,31 @@ public class DistributedTransactionUI extends UI {
             .getLogger(DistributedTransactionUI.class.getName());
 
     /**
+     * Distributed Service which invokes method to basic interaction with
+     * databases.
+     */
+    @Autowired
+    private DistributedService distributedService;
+
+    /**
+     * Entity object represents Fianance.
+     */
+    private Finance finance = null;
+
+    /**
      * Creating object button for tabs in sheet.
      */
     private TabSheet tabSheet = null;
+
+    /**
+     * Entity object represents WarehouseFinland.
+     */
+    private WarehouseFinland warehouseFinland = null;
+
+    /**
+     * Entity object represents WarehousePoland.
+     */
+    private WarehousePoland warehousePoland = null;
 
     /**
      * This method build view for finance operations for distributed
@@ -96,10 +126,31 @@ public class DistributedTransactionUI extends UI {
      */
     @Override
     protected void init(VaadinRequest request) {
+        initDataForDataSource();
         final VerticalLayout layout = new VerticalLayout();
         layout.setMargin(true);
         layout.addComponent(buildTabSheet(layout));
         setContent(layout);
+    }
+
+    /**
+     * Method to remove somewhere to business.
+     */
+    private void initDataForDataSource() {
+        finance.setId(1);
+        finance.setName("test");
+        finance.setPrice(16.0f);
+        finance.setRegisterDate(new Timestamp(0));
+
+        warehouseFinland.setId(1);
+        warehouseFinland.setName("test");
+        warehouseFinland.setAmount(100);
+        warehouseFinland.setDepotDate(new Timestamp(0));
+
+        warehousePoland.setId(1);
+        warehousePoland.setName("test");
+        warehousePoland.setAmount(100);
+        warehousePoland.setDepotDate(new Timestamp(0));
     }
 
 }
