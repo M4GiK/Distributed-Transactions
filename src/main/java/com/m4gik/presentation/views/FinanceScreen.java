@@ -17,9 +17,14 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class FinanceScreen implements ViewScreen {
 
+    /**
+     * 
+     * TODO Comments missing. This method overrides an existing method.
+     * 
+     * @see com.m4gik.presentation.views.ViewScreen#build()
+     */
     @Override
     public Layout build() {
-        // TODO Auto-generated method stub
         return new VerticalLayout();
     }
 

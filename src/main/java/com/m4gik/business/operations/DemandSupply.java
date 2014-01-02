@@ -27,9 +27,9 @@ public class DemandSupply extends BaseDataSource {
     public final static String NAME = "NAME_FOR_ARTICLE";
     public final static String TABLE_NAME = "TABLE_NAME";
 
-    public DemandSupply() {
-        super();
-    }
+    // public DemandSupply() {
+    // super();
+    // }
 
     /**
      * 
