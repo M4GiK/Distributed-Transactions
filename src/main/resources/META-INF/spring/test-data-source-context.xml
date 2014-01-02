@@ -12,7 +12,7 @@
 	<tx:annotation-driven proxy-target-class="false" />			
 			
 	<!-- Configuration for Warehouse in Poland database sources -->				
-	<bean class="com.m4gik.business.DataSourceInitializer">
+	<bean class="test.jdbc.datasource.DataSourceInitializer">
 		<property name="dataSource" ref="dataSourceWarehousePoland" />
 		<property name="initScripts" value="/warehousePoland.sql" />
 	</bean>
@@ -20,7 +20,7 @@
 	<bean id="dataSourceWarehousePoland" class="com.m4gik.business.AtomikosDataSourceFactoryBean">
 		<property name="uniqueResourceName" value="data-source-warehouse-poland" />
 		<property name="xaDataSource">
-			<bean class="com.m4gik.business.DerbyDataSourceFactoryBean">
+			<bean class="test.jdbc.datasource.DerbyDataSourceFactoryBean">
 				<property name="databaseName" value="warehousepldb" />
 			</bean>
 		</property>
@@ -29,7 +29,7 @@
 	</bean>
 	
 	<!-- Configuration for Warehouse in Finland database sources -->
-	<bean class="com.m4gik.business.DataSourceInitializer">
+	<bean class="test.jdbc.datasource.DataSourceInitializer">
 		<property name="dataSource" ref="dataSourceWarehouseFinland" />
 		<property name="initScripts" value="/warehouseFinland.sql" />
 	</bean>
@@ -37,7 +37,7 @@
 	<bean id="dataSourceWarehouseFinland" class="com.m4gik.business.AtomikosDataSourceFactoryBean">
 		<property name="uniqueResourceName" value="data-source-warehouse-finland" />
 		<property name="xaDataSource">
-			<bean class="com.m4gik.business.DerbyDataSourceFactoryBean">
+			<bean class="test.jdbc.datasource.DerbyDataSourceFactoryBean">
 				<property name="databaseName" value="warehousefidb" />
 			</bean>
 		</property>
@@ -46,7 +46,7 @@
 	</bean>
 
 	<!-- Configuration for Finance database sources -->	
-	<bean class="com.m4gik.business.DataSourceInitializer">
+	<bean class="test.jdbc.datasource.DataSourceInitializer">
 		<property name="dataSource" ref="dataSourceFinance" />
 		<property name="initScripts" value="/finance.sql" />
 	</bean>
@@ -54,7 +54,7 @@
 	<bean id="dataSourceFinance" class="com.m4gik.business.AtomikosDataSourceFactoryBean">
 		<property name="uniqueResourceName" value="data-source-finance" />
 		<property name="xaDataSource">
-			<bean class="com.m4gik.business.DerbyDataSourceFactoryBean">
+			<bean class="test.jdbc.datasource.DerbyDataSourceFactoryBean">
 				<property name="databaseName" value="financedb" />
 			</bean>
 		</property>

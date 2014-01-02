@@ -11,7 +11,7 @@ import javax.sql.XADataSource;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.config.AbstractFactoryBean;
 
-import com.atomikos.jdbc.SimpleDataSourceBean;
+import com.atomikos.jdbc.AtomikosDataSourceBean;
 
 /**
  * A {@link FactoryBean} for an Atomikos pooled {@link DataSource} taking care
@@ -21,6 +21,7 @@ import com.atomikos.jdbc.SimpleDataSourceBean;
  * @author m4gik <michal.szczygiel@wp.pl>
  * 
  */
+@SuppressWarnings("rawtypes")
 public class AtomikosDataSourceFactoryBean extends AbstractFactoryBean {
 
     /**
@@ -62,11 +63,12 @@ public class AtomikosDataSourceFactoryBean extends AbstractFactoryBean {
      */
     @Override
     protected Object createInstance() throws Exception {
-        SimpleDataSourceBean result = new SimpleDataSourceBean();
+        AtomikosDataSourceBean result = new AtomikosDataSourceBean();
         result.setXaDataSource(xaDataSource);
         result.setUniqueResourceName(uniqueResourceName);
-        result.setExclusiveConnectionMode(exclusiveConnectionMode);
-        result.setConnectionPoolSize(connectionPoolSize);
+        // result.setConnectionPoolSize(connectionPoolSize);
+        result.setPoolSize(connectionPoolSize);
+        // result.setExclusiveConnectionMode(exclusiveConnectionMode);
         result.init();
 
         return result;
@@ -80,7 +82,7 @@ public class AtomikosDataSourceFactoryBean extends AbstractFactoryBean {
      */
     @Override
     protected void destroyInstance(Object instance) throws Exception {
-        ((SimpleDataSourceBean) instance).close();
+        ((AtomikosDataSourceBean) instance).close();
     }
 
     /**
@@ -90,8 +92,8 @@ public class AtomikosDataSourceFactoryBean extends AbstractFactoryBean {
      * @see org.springframework.beans.factory.config.AbstractFactoryBean#getObjectType()
      */
     @Override
-    public Class<SimpleDataSourceBean> getObjectType() {
-        return SimpleDataSourceBean.class;
+    public Class<AtomikosDataSourceBean> getObjectType() {
+        return AtomikosDataSourceBean.class;
     }
 
     /**

@@ -6,6 +6,7 @@
 package com.m4gik.presentation.views;
 
 import com.vaadin.ui.Layout;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  * 
@@ -19,7 +20,7 @@ public class FinanceScreen implements ViewScreen {
     @Override
     public Layout build() {
         // TODO Auto-generated method stub
-        return null;
+        return new VerticalLayout();
     }
 
 }

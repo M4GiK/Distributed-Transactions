@@ -7,7 +7,7 @@ package com.m4gik.business.operations;
 
 import java.util.HashMap;
 
-import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.m4gik.business.BaseDataSource;
@@ -19,19 +19,30 @@ import com.m4gik.business.BaseDataSource;
  * @author m4gik <michal.szczygiel@wp.pl>
  * 
  */
+
 public class DemandSupply extends BaseDataSource {
 
-    private final static String AMOUNT = "AMOUNT";
-    private final static String DATE = "DAPOT_DATETIME";
-    private final static String NAME = "NAME_FOR_ARTICLE";
-    private final static String TABLE_NAME = "TABLE_NAME";
+    public final static String AMOUNT = "AMOUNT";
+    public final static String DATE = "DAPOT_DATETIME";
+    public final static String NAME = "NAME_FOR_ARTICLE";
+    public final static String TABLE_NAME = "TABLE_NAME";
 
+    public DemandSupply() {
+        super();
+    }
+
+    /**
+     * 
+     * @param demand
+     * @param simpleJdbcTemplate
+     */
     private void checkWarehouse(HashMap<String, String> demand,
-            SimpleJdbcTemplate simpleJdbcTemplate) {
-        String createdQuery = createSelectQuery(demand);
+            JdbcTemplate simpleJdbcTemplate) {
 
-        if (simpleJdbcTemplate.getJdbcOperations().queryForInt(createdQuery) < 1) {
-
+        if (simpleJdbcTemplate.queryForInt(createSelectQuery(demand)) < 1) {
+            // simpleJdbcTemplate.update(createUpdateQuery(demand,
+            // simpleJdbcTemplate));
+            createUpdateQuery(demand, simpleJdbcTemplate);
         }
     }
 
@@ -43,15 +54,31 @@ public class DemandSupply extends BaseDataSource {
      *            TABLE_NAME second element - NAME_FOR_ARTICLE third element -
      *            DAPOT_DATETIME fourth element - AMOUNT.
      * 
-     * @return String with select query.
+     * @return String with select query with question about size elements with
+     *         amount more then 100 .
      */
     private String createSelectQuery(HashMap<String, String> demand) {
         String createdQuery = "SELECT COUNT(amount) FROM  ";
         createdQuery += demand.get(TABLE_NAME);
-        createdQuery += " WHERE ";
-        // createdQuery += demand.get(NAME);
-        // createdQuery += demand.get(DATE);
-        // createdQuery += demand.get(AMOUNT);
+        createdQuery += " WHERE name =  " + demand.get(NAME);
+        createdQuery += " AND amount > 100";
+
+        return createdQuery;
+    }
+
+    /**
+     * 
+     * @param demand
+     * @param simpleJdbcTemplate
+     * @return
+     */
+    private String createUpdateQuery(HashMap<String, String> demand,
+            JdbcTemplate simpleJdbcTemplate) {
+        String createdQuery = "SELECT amount FROM " + demand.get(TABLE_NAME);
+        createdQuery += " WHERE name =  " + demand.get(NAME);
+
+        Integer amount = simpleJdbcTemplate.queryForInt(createdQuery);
+        System.out.println("TROLOLO " + amount);
 
         return createdQuery;
     }
@@ -66,7 +93,8 @@ public class DemandSupply extends BaseDataSource {
      * 
      */
     @Transactional
-    public void makeDemand(HashMap<String, String> demand, String country) {
+    public void makeDemand(HashMap<String, String> demand, String country)
+            throws Exception {
         if (country.equalsIgnoreCase("Poland")) {
             checkWarehouse(demand, getJdbcWarehousePoland());
         }

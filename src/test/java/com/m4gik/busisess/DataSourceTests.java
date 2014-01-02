@@ -30,7 +30,7 @@ public class DataSourceTests extends BaseDataSourceTest {
         assertEquals(1,
                 getJdbcFinance().queryForInt("SELECT COUNT(*) FROM REGISTER"));
 
-        getJdbcFinance().getJdbcOperations().execute("DELETE FROM REGISTER");
+        getJdbcFinance().execute("DELETE FROM REGISTER");
         assertEquals(0,
                 getJdbcFinance().queryForInt("SELECT COUNT(*) FROM REGISTER"));
     }
@@ -46,8 +46,7 @@ public class DataSourceTests extends BaseDataSourceTest {
                 getJdbcWarehouseFinland().queryForInt(
                         "SELECT COUNT(*) FROM DEPOT"));
 
-        getJdbcWarehouseFinland().getJdbcOperations().execute(
-                "DELETE FROM DEPOT");
+        getJdbcWarehouseFinland().execute("DELETE FROM DEPOT");
         assertEquals(
                 0,
                 getJdbcWarehouseFinland().queryForInt(
@@ -66,8 +65,7 @@ public class DataSourceTests extends BaseDataSourceTest {
                 getJdbcWarehousePoland().queryForInt(
                         "SELECT COUNT(*) FROM DEPOT"));
 
-        getJdbcWarehousePoland().getJdbcOperations().execute(
-                "DELETE FROM DEPOT");
+        getJdbcWarehousePoland().execute("DELETE FROM DEPOT");
         assertEquals(
                 0,
                 getJdbcWarehousePoland().queryForInt(

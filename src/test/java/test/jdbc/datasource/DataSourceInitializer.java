@@ -27,7 +27,6 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
 /**
@@ -52,10 +51,10 @@ public class DataSourceInitializer implements InitializingBean, DisposableBean {
      * 
      * @param args
      */
+    @SuppressWarnings("resource")
     public static void main(String... args) {
         new ClassPathXmlApplicationContext(
-                ClassUtils.addResourcePathToPackagePath(
-                        DataSourceInitializer.class, "data-source-context.xml"));
+                "META-INF/spring/data-source-context.xml");
     }
 
     private DataSource dataSource;
@@ -123,6 +122,7 @@ public class DataSourceInitializer implements InitializingBean, DisposableBean {
      * 
      * @param scriptResource
      */
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     private void doExecuteScript(final Resource scriptResource) {
         if (scriptResource == null || !scriptResource.exists()) {
             return;
@@ -133,7 +133,6 @@ public class DataSourceInitializer implements InitializingBean, DisposableBean {
 
         transactionTemplate.execute(new TransactionCallback() {
 
-            @SuppressWarnings("unchecked")
             public Object doInTransaction(TransactionStatus status) {
                 JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
                 String[] scripts;

@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
@@ -24,36 +24,36 @@ public class BaseDataSource {
     /**
      * JDBC object to the Finance.
      */
-    private SimpleJdbcTemplate jdbcFinance;
+    private JdbcTemplate jdbcFinance;
 
     /**
      * JDBC object to the warehouse in Finland.
      */
-    private SimpleJdbcTemplate jdbcWarehouseFinland;
+    private JdbcTemplate jdbcWarehouseFinland;
 
     /**
      * JDBC object to the warehouse in Poland.
      */
-    private SimpleJdbcTemplate jdbcWarehousePoland;
+    private JdbcTemplate jdbcWarehousePoland;
 
     /**
      * @return the jdbcFinance
      */
-    public SimpleJdbcTemplate getJdbcFinance() {
+    public JdbcTemplate getJdbcFinance() {
         return jdbcFinance;
     }
 
     /**
      * @return the jdbcWarehouseFinland
      */
-    public SimpleJdbcTemplate getJdbcWarehouseFinland() {
+    public JdbcTemplate getJdbcWarehouseFinland() {
         return jdbcWarehouseFinland;
     }
 
     /**
      * @return the jdbcWarehousePoland
      */
-    public SimpleJdbcTemplate getJdbcWarehousePoland() {
+    public JdbcTemplate getJdbcWarehousePoland() {
         return jdbcWarehousePoland;
     }
 
@@ -70,10 +70,9 @@ public class BaseDataSource {
             @Qualifier("dataSourceWarehousePoland") DataSource dataSourceWarehousePoland,
             @Qualifier("dataSourceWarehouseFinland") DataSource dataSourceWarehouseFinland,
             @Qualifier("dataSourceFinance") DataSource dataSourceFinance) {
-        this.jdbcWarehousePoland = new SimpleJdbcTemplate(
-                dataSourceWarehousePoland);
-        this.jdbcWarehouseFinland = new SimpleJdbcTemplate(
-                dataSourceWarehouseFinland);
-        this.jdbcFinance = new SimpleJdbcTemplate(dataSourceFinance);
+        this.jdbcWarehousePoland = new JdbcTemplate(dataSourceWarehousePoland);
+        this.jdbcWarehouseFinland = new JdbcTemplate(dataSourceWarehouseFinland);
+        this.jdbcFinance = new JdbcTemplate(dataSourceFinance);
+        System.out.println("LOL");
     }
 }

@@ -14,7 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -25,7 +25,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/META-INF/spring/data-source-context.xml")
+@ContextConfiguration(locations = "/META-INF/spring/test-data-source-context.xml")
 public class BaseDataSourceTest {
 
     /**
@@ -51,36 +51,36 @@ public class BaseDataSourceTest {
     /**
      * JDBC object to the Finance.
      */
-    private SimpleJdbcTemplate jdbcFinance;
+    private JdbcTemplate jdbcFinance;
 
     /**
      * JDBC object to the warehouse in Finland.
      */
-    private SimpleJdbcTemplate jdbcWarehouseFinland;
+    private JdbcTemplate jdbcWarehouseFinland;
 
     /**
      * JDBC object to the warehouse in Poland.
      */
-    private SimpleJdbcTemplate jdbcWarehousePoland;
+    private JdbcTemplate jdbcWarehousePoland;
 
     /**
      * @return the jdbcFinance
      */
-    public SimpleJdbcTemplate getJdbcFinance() {
+    public JdbcTemplate getJdbcFinance() {
         return jdbcFinance;
     }
 
     /**
      * @return the jdbcWarehouseFinland
      */
-    public SimpleJdbcTemplate getJdbcWarehouseFinland() {
+    public JdbcTemplate getJdbcWarehouseFinland() {
         return jdbcWarehouseFinland;
     }
 
     /**
      * @return the jdbcWarehousePoland
      */
-    public SimpleJdbcTemplate getJdbcWarehousePoland() {
+    public JdbcTemplate getJdbcWarehousePoland() {
         return jdbcWarehousePoland;
     }
 
@@ -97,11 +97,9 @@ public class BaseDataSourceTest {
             @Qualifier("dataSourceWarehousePoland") DataSource dataSourceWarehousePoland,
             @Qualifier("dataSourceWarehouseFinland") DataSource dataSourceWarehouseFinland,
             @Qualifier("dataSourceFinance") DataSource dataSourceFinance) {
-        this.jdbcWarehousePoland = new SimpleJdbcTemplate(
-                dataSourceWarehousePoland);
-        this.jdbcWarehouseFinland = new SimpleJdbcTemplate(
-                dataSourceWarehouseFinland);
-        this.jdbcFinance = new SimpleJdbcTemplate(dataSourceFinance);
+        this.jdbcWarehousePoland = new JdbcTemplate(dataSourceWarehousePoland);
+        this.jdbcWarehouseFinland = new JdbcTemplate(dataSourceWarehouseFinland);
+        this.jdbcFinance = new JdbcTemplate(dataSourceFinance);
     }
 
 }
