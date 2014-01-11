@@ -8,8 +8,6 @@ package com.m4gik.presentation;
 import java.sql.Timestamp;
 import java.util.logging.Logger;
 
-import javax.servlet.annotation.WebServlet;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.m4gik.business.model.Finance;
@@ -18,9 +16,7 @@ import com.m4gik.business.model.WarehousePoland;
 import com.m4gik.business.service.DistributedService;
 import com.m4gik.presentation.views.FinanceScreen;
 import com.vaadin.annotations.Theme;
-import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
@@ -36,7 +32,6 @@ import com.vaadin.ui.VerticalLayout;
  */
 @Theme("runo")
 @SuppressWarnings("serial")
-@org.springframework.stereotype.Component("distributedTransaction")
 public class DistributedTransactionUI extends UI {
 
     /**
@@ -46,10 +41,12 @@ public class DistributedTransactionUI extends UI {
      * @author m4gik <michal.szczygiel@wp.pl>
      * 
      */
-    @WebServlet(value = "/*", asyncSupported = true)
-    @VaadinServletConfiguration(productionMode = false, ui = DistributedTransactionUI.class, widgetset = "com.vaadin.DefaultWidgetSet")
-    public static class Servlet extends VaadinServlet {
-    }
+    // @WebServlet(value = "/*", asyncSupported = true)
+    // @VaadinServletConfiguration(productionMode = false, ui =
+    // DistributedTransactionUI.class, widgetset =
+    // "com.vaadin.DefaultWidgetSet")
+    // public static class Servlet extends VaadinServlet {
+    // }
 
     /**
      * Logger for reporting in runtime.

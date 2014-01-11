@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+
+	<display-name>distributed-transactions</display-name>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/data-source-context.xml
+		</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+
+	<!-- Vaadin servlet -->
+	<servlet>
+		<servlet-name>distributedTransaction</servlet-name>
+		<servlet-class>com.m4gik.business.DistributedTransactionServlet</servlet-class>
+		
+		<init-param>
+			<description>Distributed Transaction UI to display</description>
+			<param-name>UI</param-name>
+			<param-value>com.m4gik.presentation.DistributedTransactionUI</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>systemMessagesBeanName</param-name>
+			<param-value>DEFAULT</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>Application widgetset</description>
+			<param-name>widgetset</param-name>
+			<param-value>com.m4gik.presentation.AppWidgetSet</param-value>
+		</init-param>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>distributedTransaction</servlet-name>
+		<url-pattern>/public/vaadin/*</url-pattern>
+	</servlet-mapping>
+
+	<resource-ref>
+		<description>MySQL DS</description>
+		<res-ref-name>jdbc/DataSourceFinance</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+	
+	<resource-ref>
+		<description>MySQL DS</description>
+		<res-ref-name>jdbc/DataSourceWarehousePoland</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+	<resource-ref>
+		<description>MySQL DS</description>
+		<res-ref-name>jdbc/DataSourceWarehouseFinland</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+</web-app>

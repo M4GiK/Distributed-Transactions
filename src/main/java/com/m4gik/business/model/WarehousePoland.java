@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "DEPOT")
+@Table(name = "DEPOT2")
 public class WarehousePoland {
 
     @Column(name = "amount", nullable = false)
